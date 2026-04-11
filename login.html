@@ -2,30 +2,124 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>BayaniHUB | Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BayaniHUB | Welcome</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = { theme: { extend: { colors: { 'lavender-bg': '#F5F7FF', 'sleek-dark': '#1E1B4B' } } } }
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'lavender-bg': '#F0F3FF',
+                        'sleek-dark': '#1E1B4B',
+                        'accent-indigo': '#6366f1'
+                    }
+                }
+            }
+        }
     </script>
+    <style>
+        .glass-card { 
+            backdrop-filter: blur(20px); 
+            border: 1px solid rgba(255, 255, 255, 0.6); 
+        }
+        .tab-active { border-bottom: 3px solid #1E1B4B; color: #1E1B4B; }
+    </style>
 </head>
 <body class="bg-lavender-bg min-h-screen flex items-center justify-center p-6">
-    <div class="bg-white/70 backdrop-blur-md p-12 rounded-[2.5rem] w-full max-w-md shadow-2xl border border-white">
+
+    <div class="glass-card bg-white/70 p-10 rounded-[3rem] w-full max-w-md shadow-2xl transition-all duration-500">
+        
         <div class="text-center mb-10">
-            <div class="w-16 h-16 bg-sleek-dark text-white rounded-2xl flex items-center justify-center font-bold text-2xl mx-auto mb-4">B</div>
-            <h1 class="text-2xl font-bold text-sleek-dark">Citizen Login</h1>
+            <div class="w-16 h-16 bg-sleek-dark text-white rounded-2xl flex items-center justify-center font-bold text-3xl mx-auto mb-4 shadow-lg">B</div>
+            <h1 class="text-2xl font-black text-sleek-dark tracking-tight">BayaniHUB</h1>
+            <p class="text-indigo-400 text-sm font-medium mt-1">Empowering Citizen Action</p>
         </div>
-        <form id="loginForm" class="space-y-4">
-            <input type="text" id="nameInput" placeholder="First Name" class="w-full p-4 rounded-xl border border-indigo-100 outline-none focus:ring-2 focus:ring-indigo-300" required>
-            <input type="email" placeholder="Email Address" class="w-full p-4 rounded-xl border border-indigo-100 outline-none focus:ring-2 focus:ring-indigo-300" required>
-            <input type="password" placeholder="Password" class="w-full p-4 rounded-xl border border-indigo-100 outline-none focus:ring-2 focus:ring-indigo-300" required>
-            <button type="submit" class="w-full bg-sleek-dark text-white py-4 rounded-xl font-bold shadow-lg hover:translate-y-[-2px] transition-all">Enter Hub</button>
+
+        <div class="flex border-b border-indigo-100 mb-8">
+            <button onclick="switchTab('login')" id="tab-login" class="flex-1 py-3 text-sm font-bold tab-active">LOGIN</button>
+            <button onclick="switchTab('signup')" id="tab-signup" class="flex-1 py-3 text-sm font-bold text-indigo-300">SIGN UP</button>
+        </div>
+
+        <form id="login-form" class="space-y-4">
+            <div class="space-y-1">
+                <label class="text-[10px] font-black uppercase text-indigo-400 ml-1">Email</label>
+                <input type="email" id="login-email" class="w-full bg-white/50 p-4 rounded-2xl border border-indigo-50 outline-none focus:ring-2 focus:ring-accent-indigo transition" placeholder="you@university.edu" required>
+            </div>
+            <div class="space-y-1 pb-4">
+                <label class="text-[10px] font-black uppercase text-indigo-400 ml-1">Password</label>
+                <input type="password" id="login-pass" class="w-full bg-white/50 p-4 rounded-2xl border border-indigo-50 outline-none focus:ring-2 focus:ring-accent-indigo transition" placeholder="••••••••" required>
+            </div>
+            <button type="submit" class="w-full bg-sleek-dark text-white py-5 rounded-2xl font-black text-lg shadow-xl hover:scale-[1.02] active:scale-95 transition-all">
+                Enter Hub
+            </button>
         </form>
+
+        <form id="signup-form" class="space-y-4 hidden">
+            <div class="grid grid-cols-2 gap-4">
+                <div class="space-y-1">
+                    <label class="text-[10px] font-black uppercase text-indigo-400 ml-1">First Name</label>
+                    <input type="text" id="signup-first" class="w-full bg-white/50 p-4 rounded-2xl border border-indigo-50 outline-none focus:ring-2 focus:ring-accent-indigo" placeholder="John">
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[10px] font-black uppercase text-indigo-400 ml-1">Last Name</label>
+                    <input type="text" class="w-full bg-white/50 p-4 rounded-2xl border border-indigo-50 outline-none focus:ring-2 focus:ring-accent-indigo" placeholder="Doe">
+                </div>
+            </div>
+            <div class="space-y-1">
+                <label class="text-[10px] font-black uppercase text-indigo-400 ml-1">Email</label>
+                <input type="email" class="w-full bg-white/50 p-4 rounded-2xl border border-indigo-50 outline-none focus:ring-2 focus:ring-accent-indigo" placeholder="johnDoe@gmail.com">
+            </div>
+            <div class="space-y-1 pb-4">
+                <label class="text-[10px] font-black uppercase text-indigo-400 ml-1">New Password</label>
+                <input type="password" class="w-full bg-white/50 p-4 rounded-2xl border border-indigo-50 outline-none focus:ring-2 focus:ring-accent-indigo" placeholder="••••••••">
+            </div>
+            <button type="submit" class="w-full bg-accent-indigo text-white py-5 rounded-2xl font-black text-lg shadow-xl hover:scale-[1.02] active:scale-95 transition-all">
+                Create Account
+            </button>
+        </form>
+
+        <p id="error-msg" class="text-red-500 text-[10px] font-bold mt-4 text-center hidden">Invalid credentials. Please try again.</p>
     </div>
+
     <script>
-        document.getElementById('loginForm').onsubmit = (e) => {
+        function switchTab(type) {
+            const loginForm = document.getElementById('login-form');
+            const signupForm = document.getElementById('signup-form');
+            const tabLogin = document.getElementById('tab-login');
+            const tabSignup = document.getElementById('tab-signup');
+
+            if (type === 'login') {
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+                tabLogin.classList.add('tab-active');
+                tabLogin.classList.remove('text-indigo-300');
+                tabSignup.classList.remove('tab-active');
+                tabSignup.classList.add('text-indigo-300');
+            } else {
+                loginForm.classList.add('hidden');
+                signupForm.classList.remove('hidden');
+                tabSignup.classList.add('tab-active');
+                tabSignup.classList.remove('text-indigo-300');
+                tabLogin.classList.remove('tab-active');
+                tabLogin.classList.add('text-indigo-300');
+            }
+        }
+
+        // Handle Login Submission
+        document.getElementById('login-form').onsubmit = function(e) {
             e.preventDefault();
-            // Save name for dashboard greeting
-            localStorage.setItem('userName', document.getElementById('nameInput').value);
+            // Since we don't have the Go backend live yet, let's pretend!
+            // We save a default name so the Dashboard looks good.
+            localStorage.setItem('userName', 'Zoa'); 
+            window.location.href = 'index.html';
+        };
+
+        // Handle Signup Submission
+        document.getElementById('signup-form').onsubmit = function(e) {
+            e.preventDefault();
+            const firstName = document.getElementById('signup-first').value;
+            localStorage.setItem('userName', firstName || 'Citizen');
             window.location.href = 'index.html';
         };
     </script>
