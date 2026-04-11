@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BayaniHUB | Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -11,49 +10,49 @@
     <style>.glass-card { backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.4); }</style>
 </head>
 <body class="bg-lavender-bg text-sleek-dark font-sans flex min-h-screen">
-    <aside class="w-64 bg-white/50 border-r border-indigo-100 p-6 flex flex-col">
+
+    <aside class="w-64 bg-white/50 border-r border-indigo-100 p-6 flex flex-col fixed h-full">
         <div class="flex items-center gap-3 mb-12">
             <div class="w-10 h-10 bg-sleek-dark text-white rounded-lg flex items-center justify-center font-bold">B</div>
             <h1 class="text-xl font-bold">BayaniHUB</h1>
         </div>
-        <nav class="space-y-6 flex-1">
-            <a href="index.html" class="flex items-center gap-4 font-bold text-sleek-dark"><div class="p-2 bg-sleek-dark text-white rounded-lg">H</div> Home</a>
-            <a href="map.html" class="flex items-center gap-4 text-indigo-400 font-medium hover:text-sleek-dark">M Map</a>
-            <a href="report.html" class="flex items-center gap-4 text-indigo-400 font-medium hover:text-sleek-dark">R Report</a>
+        <nav class="space-y-4 flex-1">
+            <a href="index.html" class="flex items-center gap-4 p-3 bg-sleek-dark text-white rounded-xl font-bold"><span>🏠</span> Home</a>
+            <a href="map.html" class="flex items-center gap-4 p-3 text-indigo-400 hover:bg-white rounded-xl transition"><span>📍</span> Live Map</a>
+            <a href="report.html" class="flex items-center gap-4 p-3 text-indigo-400 hover:bg-white rounded-xl transition"><span>➕</span> New Report</a>
+            <a href="login.html" class="flex items-center gap-4 p-3 text-red-400 hover:bg-red-50 rounded-xl transition mt-20"><span>🚪</span> Logout</a>
         </nav>
     </aside>
 
-    <main class="flex-1 p-10">
-        <header class="flex justify-between items-center mb-10">
+    <main class="flex-1 ml-64 p-10">
+        <header class="flex justify-between items-end mb-10">
             <div>
-                <h2 id="user-greeting" class="text-3xl font-bold text-sleek-dark tracking-tight">Good morning, Zoa</h2>
-                <p class="text-indigo-400 font-medium">Community Status: Stable</p>
+                <h2 id="user-greeting" class="text-4xl font-black tracking-tight">Mabuhay, Zoa!</h2>
+                <p class="text-indigo-400 font-medium">Your community is 92% operational today.</p>
             </div>
-            <div class="bg-white/40 px-6 py-3 rounded-2xl border border-white font-bold shadow-sm">⭐ 120 Points</div>
-        </header>
-
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div class="lg:col-span-2 glass-card bg-white/40 p-10 rounded-[2.5rem] shadow-sm">
-                <span class="text-xs font-black text-indigo-300 uppercase tracking-widest">Featured Report</span>
-                <h3 class="text-4xl font-bold mt-4 mb-4">Clogged Drainage - Brgy. Luz</h3>
-                <p class="text-indigo-600/80 leading-relaxed mb-8">Maintenance team is scheduled for inspection tomorrow morning. Resolution expected in 48h.</p>
-                <div class="flex gap-4">
-                    <span class="px-4 py-2 bg-white/60 rounded-xl text-xs font-bold border border-white">#CIVIC-102</span>
-                    <span class="px-4 py-2 bg-indigo-500 text-white rounded-xl text-xs font-bold">IN PROGRESS</span>
+            <div class="glass-card bg-white/40 p-4 rounded-2xl border border-white text-right">
+                <p class="text-xs font-black text-indigo-300 uppercase">Total Merit</p>
+                <p class="text-2xl font-bold">1,240 pts</p>
+                <div class="w-32 h-1.5 bg-indigo-100 rounded-full mt-2 overflow-hidden">
+                    <div class="bg-indigo-500 h-full" style="width: 75%"></div>
                 </div>
             </div>
-            <div class="glass-card bg-sleek-dark text-white p-10 rounded-[2.5rem] flex flex-col justify-center text-center">
-                <h4 class="opacity-60 text-sm uppercase tracking-widest font-bold">Your Rank</h4>
-                <p class="text-7xl font-black italic my-6">A+</p>
-                <p class="text-xs opacity-50">5 points until next reward</p>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="glass-card bg-white/40 p-8 rounded-[2.5rem]">
+                <h3 class="text-xl font-bold mb-4">Active Reports</h3>
+                <div class="space-y-4">
+                    <div class="p-4 bg-white/60 rounded-2xl flex justify-between items-center">
+                        <div>
+                            <p class="font-bold">Drainage Issue</p>
+                            <p class="text-xs text-indigo-400">Brgy. Luz • Assigned</p>
+                        </div>
+                        <span class="text-indigo-600 font-bold text-sm">+20 pts</span>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
-
-    <script>
-        // Personalization Logic
-        const name = localStorage.getItem('userName');
-        if (name) document.getElementById('user-greeting').innerText = `Good morning, ${name}`;
-    </script>
 </body>
 </html>
