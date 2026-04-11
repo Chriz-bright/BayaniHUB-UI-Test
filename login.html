@@ -132,16 +132,15 @@
         document.getElementById('login-form').onsubmit = function(e) {
     e.preventDefault();
     
-    // 1. Show the splash screen
+   
     const splash = document.getElementById('splash-screen');
     splash.classList.remove('hidden');
     
-    // 2. Save the name
+    
     localStorage.setItem('userName', 'Zoa'); 
     
-    // 3. Wait 2 seconds for the "cool effect" then redirect
     setTimeout(() => {
-        window.location.href = 'index.html'; // Or whatever your dashboard is named
+        window.location.href = 'index.html';
     }, 2500);
 };
     </script>
