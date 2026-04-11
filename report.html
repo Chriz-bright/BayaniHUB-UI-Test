@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BayaniHUB | Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { 'lavender-bg': '#F5F7FF', 'sleek-dark': '#1E1B4B' } } } }
+    </script>
+</head>
+<body class="bg-lavender-bg text-sleek-dark flex">
+    <main class="flex-1 p-10 max-w-3xl mx-auto">
+        <h2 class="text-3xl font-bold mb-8">File a New Report</h2>
+        <div class="bg-white/50 backdrop-blur-md p-8 rounded-[2rem] border border-white space-y-6">
+            <div>
+                <label class="block text-sm font-bold mb-2">Category</label>
+                <select class="w-full p-4 rounded-xl border border-indigo-100 bg-white"><option>Road Repair</option><option>Waste</option><option>Utilities</option><option>Others</option></select>
+            </div>
+            <div>
+                <label class="block text-sm font-bold mb-2">Description</label>
+                <textarea class="w-full p-4 rounded-xl border border-indigo-100 h-32" placeholder="Tell us what's wrong..."></textarea>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <button class="p-4 border-2 border-dashed border-indigo-200 rounded-xl font-bold text-indigo-400">📸 Attach Photo</button>
+                <button class="p-4 border-2 border-dashed border-indigo-200 rounded-xl font-bold text-indigo-400">📍 Get Location</button>
+            </div>
+            <button class="w-full bg-sleek-dark text-white py-5 rounded-2xl font-bold text-lg">Submit Issue</button>
+        </div>
+    </main>
+</body>
+</html>
