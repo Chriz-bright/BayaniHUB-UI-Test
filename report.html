@@ -2,30 +2,138 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>BayaniHUB | Report</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BayaniHUB | File Report</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
-        tailwind.config = { theme: { extend: { colors: { 'lavender-bg': '#F5F7FF', 'sleek-dark': '#1E1B4B' } } } }
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'lavender-bg': '#F0F3FF',
+                        'sleek-dark': '#1E1B4B',
+                        'accent-indigo': '#6366f1'
+                    }
+                }
+            }
+        }
     </script>
+    <style>
+        .glass-panel { backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.5); }
+        #map { height: 400px; width: 100%; border-radius: 1.5rem; z-index: 1; }
+    </style>
 </head>
-<body class="bg-lavender-bg text-sleek-dark flex">
-    <main class="flex-1 p-10 max-w-3xl mx-auto">
-        <h2 class="text-3xl font-bold mb-8">File a New Report</h2>
-        <div class="bg-white/50 backdrop-blur-md p-8 rounded-[2rem] border border-white space-y-6">
+<body class="bg-lavender-bg text-sleek-dark font-sans flex min-h-screen">
+
+    <aside class="w-64 bg-white/70 border-r border-indigo-100 p-6 flex flex-col fixed h-full z-50">
+        <div class="flex items-center gap-3 mb-12">
+            <div class="w-10 h-10 bg-sleek-dark text-white rounded-lg flex items-center justify-center font-bold">B</div>
+            <h1 class="text-xl font-bold tracking-tight">BayaniHUB</h1>
+        </div>
+        <nav class="space-y-4 flex-1">
+            <a href="index.html" class="flex items-center gap-4 p-3 text-indigo-400 hover:bg-white rounded-xl transition"><span>H</span> Home</a>
+            <a href="report.html" class="flex items-center gap-4 p-3 bg-sleek-dark text-white rounded-xl font-bold shadow-lg shadow-indigo-200"><span>R</span> New Report</a>
+            <a href="map.html" class="flex items-center gap-4 p-3 text-indigo-400 hover:bg-white rounded-xl transition"><span>M</span> Live Map</a>
+            
+        </nav>
+        <div class="pt-6 border-t border-indigo-100">
+            <a href="login.html" class="flex items-center gap-4 p-3 text-red-400 hover:bg-red-50 rounded-xl transition"><span>L</span> Logout</a>
+        </div>
+    </aside>
+
+    <main class="flex-1 ml-64 p-8 lg:p-12">
+        <header class="flex justify-between items-center mb-8">
             <div>
-                <label class="block text-sm font-bold mb-2">Category</label>
-                <select class="w-full p-4 rounded-xl border border-indigo-100 bg-white"><option>Road Repair</option><option>Waste</option><option>Utilities</option><option>Others</option></select>
+                <h2 class="text-4xl font-black tracking-tight">File Report</h2>
+                <p class="text-indigo-400 font-medium">Pin the issue and help your community.</p>
             </div>
-            <div>
-                <label class="block text-sm font-bold mb-2">Description</label>
-                <textarea class="w-full p-4 rounded-xl border border-indigo-100 h-32" placeholder="Tell us what's wrong..."></textarea>
+            <div class="glass-panel bg-white/40 px-6 py-3 rounded-2xl shadow-sm text-center">
+                <p class="text-[10px] font-black uppercase text-indigo-300">Merit Reward</p>
+                <p class="text-xl font-bold text-accent-indigo">+50 Points</p>
             </div>
-            <div class="grid grid-cols-2 gap-4">
-                <button class="p-4 border-2 border-dashed border-indigo-200 rounded-xl font-bold text-indigo-400">📸 Attach Photo</button>
-                <button class="p-4 border-2 border-dashed border-indigo-200 rounded-xl font-bold text-indigo-400">📍 Get Location</button>
+        </header>
+
+        <div class="grid grid-cols-1 xl:grid-cols-5 gap-8">
+            <div class="xl:col-span-3 space-y-4">
+                <div class="glass-panel bg-white/60 p-4 rounded-[2rem] shadow-sm">
+                    <div class="flex justify-between items-center mb-4 px-2">
+                        <span class="text-sm font-bold text-sleek-dark">Drag pin to locate issue</span>
+                        <span id="coords" class="text-[10px] font-mono bg-white px-2 py-1 rounded-md border text-indigo-500">Center: Cebu City</span>
+                    </div>
+                    <div id="map"></div>
+                </div>
             </div>
-            <button class="w-full bg-sleek-dark text-white py-5 rounded-2xl font-bold text-lg">Submit Issue</button>
+
+            <div class="xl:col-span-2 space-y-6">
+                <div class="glass-panel bg-white/80 p-8 rounded-[2rem] shadow-xl border-white">
+                    <div class="space-y-5">
+                        <div>
+                            <label class="text-xs font-black uppercase text-indigo-400 block mb-2">Category</label>
+                            <select class="w-full bg-white p-4 rounded-xl border border-indigo-50 outline-none focus:ring-2 focus:ring-accent-indigo">
+                                <option>Road Damage</option>
+                                <option>Utility Failure</option>
+                                <option>Public Sanitation</option>
+                                <option>Others(Specify in the description box</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="text-xs font-black uppercase text-indigo-400 block mb-2">Description</label>
+                            <textarea class="w-full bg-white p-4 rounded-xl border border-indigo-50 h-32 outline-none focus:ring-2 focus:ring-accent-indigo resize-none" placeholder="Describe the issue..."></textarea>
+                        </div>
+
+                        <div>
+                            <label class="text-xs font-black uppercase text-indigo-400 block mb-2">Upload Proof</label>
+                            <div id="preview-box" onclick="document.getElementById('file-input').click()" class="w-full h-32 border-2 border-dashed border-indigo-100 rounded-xl flex flex-col items-center justify-center cursor-pointer hover:bg-indigo-50 transition overflow-hidden">
+                                <span class="text-[10px] font-bold text-indigo-300">ADD IMAGE</span>
+                            </div>
+                            <input type="file" id="file-input" class="hidden" accept="image/*">
+                        </div>
+
+                        <button class="w-full bg-sleek-dark text-white py-5 rounded-2xl font-black text-lg shadow-2xl hover:scale-[1.01] transition-all">
+                            Submit Report
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </main>
+
+    <script>
+        // LEAFLET MAP LOGIC (No API Key Required)
+        // Center on Cebu City
+        const lat = 10.3157;
+        const lng = 123.8854;
+
+        var map = L.map('map').setView([lat, lng], 15);
+
+        // Add sleek-looking map tiles
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+            attribution: '©OpenStreetMap'
+        }).addTo(map);
+
+        // Add a Maxim-style draggable marker
+        var marker = L.marker([lat, lng], {
+            draggable: true
+        }).addTo(map);
+
+        // Update coordinates when marker is dragged
+        marker.on('dragend', function (e) {
+            const pos = marker.getLatLng();
+            document.getElementById('coords').innerText = `Lat: ${pos.lat.toFixed(4)}, Lng: ${pos.lng.toFixed(4)}`;
+        });
+
+        // Image Preview Handler
+        document.getElementById('file-input').onchange = function(e) {
+            const reader = new FileReader();
+            reader.onload = function() {
+                const box = document.getElementById('preview-box');
+                box.innerHTML = `<img src="${reader.result}" class="w-full h-full object-cover">`;
+            }
+            reader.readAsDataURL(e.target.files[0]);
+        };
+    </script>
 </body>
 </html>
