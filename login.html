@@ -28,6 +28,13 @@
 </head>
 <body class="bg-lavender-bg min-h-screen flex items-center justify-center p-6">
 
+<div id="splash-screen" class="fixed inset-0 bg-sleek-dark z-[200] flex flex-col items-center justify-center transition-opacity duration-1000 hidden">
+    <div class="w-24 h-24 bg-accent-indigo text-white rounded-[2rem] flex items-center justify-center text-4xl font-black shadow-[0_0_50px_rgba(99,102,241,0.5)] animate-bounce">
+        B
+    </div>
+    <p class="text-indigo-200 mt-8 font-black tracking-[0.2em] animate-pulse text-xs uppercase">Initializing BayaniHUB...</p>
+</div>
+    
     <div class="glass-card bg-white/70 p-10 rounded-[3rem] w-full max-w-md shadow-2xl transition-all duration-500">
         
         <div class="text-center mb-10">
@@ -122,6 +129,22 @@
             localStorage.setItem('userName', firstName || 'Citizen');
             window.location.href = 'index.html';
         };
+        document.getElementById('login-form').onsubmit = function(e) {
+    e.preventDefault();
+    
+    // 1. Show the splash screen
+    const splash = document.getElementById('splash-screen');
+    splash.classList.remove('hidden');
+    
+    // 2. Save the name
+    localStorage.setItem('userName', 'Zoa'); 
+    
+    // 3. Wait 2 seconds for the "cool effect" then redirect
+    setTimeout(() => {
+        window.location.href = 'dashboard.html'; // Or whatever your dashboard is named
+    }, 2500);
+};
     </script>
+    
 </body>
 </html>
