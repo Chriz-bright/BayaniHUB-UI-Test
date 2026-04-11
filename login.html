@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BayaniHUB | Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { 'lavender-bg': '#F5F7FF', 'sleek-dark': '#1E1B4B' } } } }
+    </script>
+</head>
+<body class="bg-lavender-bg min-h-screen flex items-center justify-center p-6">
+    <div class="bg-white/70 backdrop-blur-md p-12 rounded-[2.5rem] w-full max-w-md shadow-2xl border border-white">
+        <div class="text-center mb-10">
+            <div class="w-16 h-16 bg-sleek-dark text-white rounded-2xl flex items-center justify-center font-bold text-2xl mx-auto mb-4">B</div>
+            <h1 class="text-2xl font-bold text-sleek-dark">Citizen Login</h1>
+        </div>
+        <form id="loginForm" class="space-y-4">
+            <input type="text" id="nameInput" placeholder="First Name" class="w-full p-4 rounded-xl border border-indigo-100 outline-none focus:ring-2 focus:ring-indigo-300" required>
+            <input type="email" placeholder="Email Address" class="w-full p-4 rounded-xl border border-indigo-100 outline-none focus:ring-2 focus:ring-indigo-300" required>
+            <input type="password" placeholder="Password" class="w-full p-4 rounded-xl border border-indigo-100 outline-none focus:ring-2 focus:ring-indigo-300" required>
+            <button type="submit" class="w-full bg-sleek-dark text-white py-4 rounded-xl font-bold shadow-lg hover:translate-y-[-2px] transition-all">Enter Hub</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('loginForm').onsubmit = (e) => {
+            e.preventDefault();
+            // Save name for dashboard greeting
+            localStorage.setItem('userName', document.getElementById('nameInput').value);
+            window.location.href = 'index.html';
+        };
+    </script>
+</body>
+</html>
