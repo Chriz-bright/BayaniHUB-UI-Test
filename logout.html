@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BayaniHUB | Signing Out</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'lavender-bg': '#F0F3FF',
+                        'sleek-dark': '#1E1B4B',
+                        'accent-indigo': '#6366f1'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-lavender-bg min-h-screen flex items-center justify-center p-6">
+
+    <div class="text-center space-y-6">
+        <div class="relative w-24 h-24 mx-auto">
+            <div class="absolute inset-0 border-4 border-indigo-100 rounded-full"></div>
+            <div class="absolute inset-0 border-4 border-accent-indigo rounded-full border-t-transparent animate-spin"></div>
+            <div class="absolute inset-0 flex items-center justify-center font-black text-sleek-dark">B</div>
+        </div>
+
+        <div>
+            <h2 class="text-3xl font-black text-sleek-dark">Signing you out...</h2>
+            <p class="text-indigo-400 font-medium mt-2">Saving your progress. See you soon, Bayani!</p>
+        </div>
+    </div>
+
+    <script>
+        // THE LOGIC: Wipe the session data
+        localStorage.removeItem('userName');
+        
+        // Redirect back to login after 2 seconds
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 2000);
+    </script>
+</body>
+</html>
