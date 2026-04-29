@@ -3,155 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BayaniHUB | Sleek Civic Edition</title>
+    <title>BayanihanHub - Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'lavender-bg': '#E0E7FF',
-                        'sleek-dark': '#1E1B4B',
-                        'glass-white': 'rgba(255, 255, 255, 0.7)',
-                    },
-                    borderRadius: {
-                        '4xl': '2rem',
-                    }
-                }
-            }
-        }
-    </script>
-    <style>
-        .glass-card {
-            backdrop-filter: blur(16px) saturate(180%);
-            background-color: rgba(255, 255, 255, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-        }
-        /* Custom scrollbar for a cleaner look */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: #C7D2FE; border-radius: 10px; }
-    </style>
 </head>
-<body class="bg-lavender-bg text-sleek-dark font-sans min-h-screen antialiased">
+<body class="bg-slate-50 flex">
 
-    <div class="flex min-h-screen">
-        
-        <aside class="w-20 lg:w-64 bg-white/30 backdrop-blur-md border-r border-white/20 flex flex-col p-6 sticky top-0 h-screen">
-            <div class="flex items-center gap-3 mb-12 px-2">
-                <div class="w-10 h-10 bg-sleek-dark text-white rounded-xl flex items-center justify-center font-bold shadow-lg shadow-indigo-900/20">B</div>
-                <h1 class="hidden lg:block text-xl font-black tracking-tight text-sleek-dark">BayaniHUB</h1>
+    <aside class="fixed left-0 top-0 h-screen w-64 bg-indigo-900 text-white flex flex-col shadow-2xl">
+        <div class="p-6 border-b border-indigo-800">
+            <h1 class="text-2xl font-bold text-lavender-100">BayanihanHub</h1>
+        </div>
+        <nav class="flex-1 p-4">
+            <ul class="space-y-2">
+                <li><a href="index.html" class="flex items-center p-3 rounded-lg bg-indigo-700 border-r-4 border-indigo-300">🏠 <span class="ml-3">Dashboard</span></a></li>
+                <li><a href="report.html" class="flex items-center p-3 rounded-lg hover:bg-indigo-800 transition">🚩 <span class="ml-3">Report Issue</span></a></li>
+                <li><a href="rewards.html" class="flex items-center p-3 rounded-lg hover:bg-indigo-800 transition">🎁 <span class="ml-3">Rewards</span></a></li>
+                <li><a href="settings.html" class="flex items-center p-3 rounded-lg hover:bg-indigo-800 transition">⚙️ <span class="ml-3">Settings</span></a></li>
+            </ul>
+        </nav>
+        <div class="p-4 border-t border-indigo-800">
+            <button class="w-full p-3 rounded-lg text-red-300 hover:bg-red-900/30 transition text-left">🚪 <span class="ml-3">Logout</span></button>
+        </div>
+    </aside>
+
+    <main class="ml-64 p-10 w-full">
+        <header class="flex justify-between items-center mb-10">
+            <h2 class="text-4xl font-bold text-indigo-900">Community Dashboard</h2>
+            <div class="bg-indigo-100 px-6 py-2 rounded-full border border-indigo-200">
+                <span class="text-indigo-800 font-bold">2,450 Merit Points</span>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-12 gap-8">
+            <div class="col-span-12 lg:col-span-8 bg-white p-6 rounded-3xl shadow-lg border border-slate-200">
+                <h3 class="text-xl font-bold text-indigo-900 mb-4">Live Incident Map</h3>
+                <div class="w-full h-[450px] bg-slate-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-slate-300 relative overflow-hidden">
+                    <p class="text-slate-400 font-medium">Interactive Map View</p>
+                    </div>
             </div>
 
-            <nav class="space-y-2 flex-1">
-                <a href="home.html" class="flex items-center gap-4 p-3.5 bg-sleek-dark text-white rounded-2xl font-bold shadow-xl shadow-indigo-500/20 transition-all active:scale-95">
-                    <span class="w-6 text-center">H</span> <span class="hidden lg:block">Home</span>
-                </a>
-                <a href="report.html" class="flex items-center gap-4 p-3.5 text-indigo-500/70 hover:bg-white/50 hover:text-sleek-dark rounded-2xl transition-all font-bold">
-                    <span class="w-6 text-center">R</span> <span class="hidden lg:block">Report</span>
-                </a>
-                <a href="status.html" class="flex items-center gap-4 p-3.5 text-indigo-500/70 hover:bg-white/50 hover:text-sleek-dark rounded-2xl transition-all font-bold">
-                    <span class="w-6 text-center">S</span> <span class="hidden lg:block">Status</span>
-                </a>
-            </nav>
-
-            <div class="pt-6 border-t border-indigo-200/50">
-                <a href="logout.html" class="flex items-center gap-4 p-3.5 text-red-400 hover:bg-red-50 rounded-2xl transition-all font-bold">
-                    <span class="w-6 text-center">L</span> <span class="hidden lg:block">Logout</span>
-                </a>
+            <div class="col-span-12 lg:col-span-4 space-y-6">
+                <div class="bg-indigo-600 text-white p-8 rounded-3xl shadow-lg">
+                    <h3 class="text-xl font-bold mb-2">Need Help?</h3>
+                    <p class="text-indigo-100 mb-6">Submit a report to alert community leaders.</p>
+                    <a href="report.html" class="block text-center bg-white text-indigo-600 py-3 rounded-xl font-bold hover:bg-slate-100 transition">File a Report</a>
+                </div>
+                <div class="bg-white p-6 rounded-3xl shadow-lg border border-slate-200">
+                    <h3 class="font-bold text-indigo-900 mb-4">Recent Updates</h3>
+                    <div class="space-y-4 text-sm text-slate-600">
+                        <p>✅ Pothole fixed at Pheromen St.</p>
+                        <p>⚠️ Flooding alert: Magsaysay Road.</p>
+                    </div>
+                </div>
             </div>
-        </aside>
-
-        <main class="flex-1 p-6 lg:p-12 max-w-7xl mx-auto w-full">
-            
-            <header class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-12">
-                <div>
-                    <h2 class="text-4xl font-black tracking-tight mb-2">Good morning, <span id="display-name" class="text-indigo-600 italic">___</span></h2>
-                    <p class="text-indigo-500/80 font-semibold flex items-center gap-2">
-                        <span class="inline-block w-2 h-2 bg-indigo-500 rounded-full animate-pulse"></span>
-                        3 reports requiring your attention
-                    </p>
-                </div>
-                
-                <div class="flex items-center gap-4 w-full md:w-auto">
-                    <div class="bg-white/60 backdrop-blur-sm px-5 py-2.5 rounded-2xl border border-white font-black text-sm shadow-sm">
-                        ⭐ <span id="display-points">120</span> <span class="text-indigo-400 ml-1">PTS</span>
-                    </div>
-                    <button class="flex-1 md:flex-none bg-sleek-dark text-white px-8 py-3 rounded-2xl font-bold hover:shadow-2xl hover:shadow-indigo-900/30 transition-all active:scale-95">
-                        New Report
-                    </button>
-                </div>
-            </header>
-
-            <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
-                <div class="lg:col-span-2 glass-card p-10 rounded-4xl shadow-xl shadow-indigo-100/50 flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-center mb-8">
-                            <span class="px-4 py-1.5 bg-indigo-100 text-indigo-600 text-[10px] font-black uppercase tracking-[0.2em] rounded-full">Active Project</span>
-                            <span class="text-xs font-bold text-indigo-300">#CIVIC-892</span>
-                        </div>
-                        <h3 class="text-4xl font-black mb-4 leading-tight">Brgy. Luz <br>Drainage Repair</h3>
-                        <p class="text-indigo-900/60 leading-relaxed max-w-md text-lg mb-8">
-                            Verification complete. Project assigned to local maintenance team. 
-                        </p>
-                    </div>
-                    
-                    <div class="flex items-center justify-between mt-4">
-                        <div class="flex -space-x-3">
-                            <div class="w-10 h-10 rounded-full bg-indigo-200 border-2 border-white"></div>
-                            <div class="w-10 h-10 rounded-full bg-indigo-300 border-2 border-white"></div>
-                            <div class="w-10 h-10 rounded-full bg-indigo-400 border-2 border-white flex items-center justify-center text-[10px] text-white font-bold">+2</div>
-                        </div>
-                        <span class="px-4 py-2 bg-white/80 rounded-xl text-xs font-black text-indigo-600 border border-white shadow-sm">URGENT PRIORITY</span>
-                    </div>
-                </div>
-
-                <div class="bg-sleek-dark text-white p-10 rounded-4xl flex flex-col justify-between shadow-2xl shadow-indigo-900/40 relative overflow-hidden">
-                    <div class="absolute -top-10 -right-10 w-32 h-32 bg-white/5 rounded-full"></div>
-                    
-                    <h4 class="font-bold text-lg opacity-50 uppercase tracking-widest text-sm">Civic Rank</h4>
-                    <div class="text-center py-6">
-                        <p id="display-rank" class="text-8xl font-black italic tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white to-indigo-400">A+</p>
-                        <p class="text-xs uppercase tracking-[0.3em] mt-4 font-bold text-indigo-300">Community Hero</p>
-                    </div>
-                    <button class="w-full py-4 bg-white/10 hover:bg-white text-white hover:text-sleek-dark rounded-2xl font-black text-sm transition-all border border-white/10 active:scale-95">
-                        Claim Rewards
-                    </button>
-                </div>
-            </section>
-
-            <section>
-                <div class="flex justify-between items-center mb-8 px-2">
-                    <h3 class="text-2xl font-black tracking-tight text-sleek-dark">Community Feed</h3>
-                    <button class="text-sm font-black text-indigo-500 hover:text-indigo-700 transition-colors uppercase tracking-widest">See All Activity</button>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="glass-card hover:bg-white/60 p-6 rounded-3xl transition-all cursor-pointer group flex items-center gap-6 shadow-sm hover:shadow-md">
-                        <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-3xl group-hover:rotate-6 transition-transform shadow-sm">📍</div>
-                        <div class="flex-1">
-                            <h5 class="font-black text-lg group-hover:text-indigo-600 transition-colors">Damaged Pavement</h5>
-                            <p class="text-sm font-semibold text-indigo-400">P. del Rosario St. • 2h ago</p>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-[10px] font-black px-3 py-1 bg-amber-100 text-amber-600 rounded-full">REVIEWING</span>
-                        </div>
-                    </div>
-
-                    <div class="glass-card hover:bg-white/60 p-6 rounded-3xl transition-all cursor-pointer group flex items-center gap-6 shadow-sm hover:shadow-md border-l-4 border-l-indigo-500">
-                        <div class="w-16 h-16 bg-white rounded-2xl flex items-center justify-center text-3xl group-hover:rotate-6 transition-transform shadow-sm">💡</div>
-                        <div class="flex-1">
-                            <h5 class="font-black text-lg group-hover:text-indigo-600 transition-colors">Streetlight Failure</h5>
-                            <p class="text-sm font-semibold text-indigo-400">V. Rama Ave • 5h ago</p>
-                        </div>
-                        <div class="text-right">
-                            <span class="text-[10px] font-black px-3 py-1 bg-indigo-100 text-indigo-600 rounded-full">ASSIGNED</span>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-        </main>
-    </div>
-
+        </div>
+    </main>
 </body>
 </html>
