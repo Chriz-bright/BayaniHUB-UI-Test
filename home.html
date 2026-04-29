@@ -3,59 +3,170 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BayanihanHub - Dashboard</title>
+    <title>BayaniHUB | Developer Edition</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'lavender-bg': '#E0E7FF',
+                        'sleek-dark': '#1E1B4B',
+                        'glass-white': 'rgba(255, 255, 255, 0.7)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-card { backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.4); }
+        /* Map styling to match your rounded aesthetic */
+        #map { height: 350px; width: 100%; border-radius: 1.5rem; z-index: 10; }
+        /* Fix for leaflet buttons appearing over sidebars */
+        .leaflet-container { font-family: inherit; }
+    </style>
 </head>
-<body class="bg-slate-50 flex">
+<body class="bg-lavender-bg text-sleek-dark font-sans min-h-screen">
 
-    <aside class="fixed left-0 top-0 h-screen w-64 bg-indigo-900 text-white flex flex-col shadow-2xl">
-        <div class="p-6 border-b border-indigo-800">
-            <h1 class="text-2xl font-bold text-lavender-100">BayanihanHub</h1>
-        </div>
-        <nav class="flex-1 p-4">
-            <ul class="space-y-2">
-                <li><a href="index.html" class="flex items-center p-3 rounded-lg bg-indigo-700 border-r-4 border-indigo-300">🏠 <span class="ml-3">Dashboard</span></a></li>
-                <li><a href="report.html" class="flex items-center p-3 rounded-lg hover:bg-indigo-800 transition">🚩 <span class="ml-3">Report Issue</span></a></li>
-                <li><a href="rewards.html" class="flex items-center p-3 rounded-lg hover:bg-indigo-800 transition">🎁 <span class="ml-3">Rewards</span></a></li>
-                <li><a href="settings.html" class="flex items-center p-3 rounded-lg hover:bg-indigo-800 transition">⚙️ <span class="ml-3">Settings</span></a></li>
-            </ul>
-        </nav>
-        <div class="p-4 border-t border-indigo-800">
-            <button class="w-full p-3 rounded-lg text-red-300 hover:bg-red-900/30 transition text-left">🚪 <span class="ml-3">Logout</span></button>
-        </div>
-    </aside>
-
-    <main class="ml-64 p-10 w-full">
-        <header class="flex justify-between items-center mb-10">
-            <h2 class="text-4xl font-bold text-indigo-900">Community Dashboard</h2>
-            <div class="bg-indigo-100 px-6 py-2 rounded-full border border-indigo-200">
-                <span class="text-indigo-800 font-bold">2,450 Merit Points</span>
+    <div class="flex">
+        <aside class="w-20 lg:w-64 bg-white/50 min-h-screen border-r border-indigo-100 flex flex-col items-center lg:items-start p-6 fixed lg:relative z-50">
+            <div class="flex items-center gap-3 mb-12">
+                <div class="w-10 h-10 bg-sleek-dark text-white rounded-lg flex items-center justify-center font-bold">B</div>
+                <h1 class="hidden lg:block text-xl font-bold tracking-tight">BayaniHUB</h1>
             </div>
-        </header>
-
-        <div class="grid grid-cols-12 gap-8">
-            <div class="col-span-12 lg:col-span-8 bg-white p-6 rounded-3xl shadow-lg border border-slate-200">
-                <h3 class="text-xl font-bold text-indigo-900 mb-4">Live Incident Map</h3>
-                <div class="w-full h-[450px] bg-slate-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-slate-300 relative overflow-hidden">
-                    <p class="text-slate-400 font-medium">Interactive Map View</p>
-                    </div>
+            <nav class="space-y-4 flex-1">
+                <a href="#" class="flex items-center gap-4 p-3 bg-sleek-dark text-white rounded-xl font-bold shadow-lg shadow-indigo-200"><span>🏠</span> Home</a>
+                <a href="#" class="flex items-center gap-4 p-3 text-indigo-400 hover:bg-white rounded-xl transition font-medium"><span>🚩</span> Report</a>
+                <a href="#" class="flex items-center gap-4 p-3 text-indigo-400 hover:bg-white rounded-xl transition font-medium"><span>📊</span> Status</a>
+            </nav>
+            <div class="pt-6 border-t border-indigo-100 w-full">
+                <button onclick="handleLogout()" class="flex items-center gap-4 p-3 text-red-400 hover:bg-red-50 rounded-xl transition font-bold w-full"><span>🚪</span> Logout</button>
             </div>
+        </aside>
 
-            <div class="col-span-12 lg:col-span-4 space-y-6">
-                <div class="bg-indigo-600 text-white p-8 rounded-3xl shadow-lg">
-                    <h3 class="text-xl font-bold mb-2">Need Help?</h3>
-                    <p class="text-indigo-100 mb-6">Submit a report to alert community leaders.</p>
-                    <a href="report.html" class="block text-center bg-white text-indigo-600 py-3 rounded-xl font-bold hover:bg-slate-100 transition">File a Report</a>
+        <main class="flex-1 p-6 lg:p-10 lg:ml-0 ml-20">
+            <header class="flex justify-between items-center mb-10">
+                <div>
+                    <h2 class="text-3xl font-bold">Good morning, <span id="user-name">...</span></h2>
+                    <p class="text-indigo-400 font-medium">You have <span id="report-count">0</span> reports requiring attention.</p>
                 </div>
-                <div class="bg-white p-6 rounded-3xl shadow-lg border border-slate-200">
-                    <h3 class="font-bold text-indigo-900 mb-4">Recent Updates</h3>
-                    <div class="space-y-4 text-sm text-slate-600">
-                        <p>✅ Pothole fixed at Pheromen St.</p>
-                        <p>⚠️ Flooding alert: Magsaysay Road.</p>
+                
+                <div class="flex items-center gap-4">
+                    <div class="bg-white/40 px-4 py-2 rounded-full border border-white font-bold text-sm">
+                        ⭐ <span id="user-points">0</span> Points
+                    </div>
+                    <button class="bg-sleek-dark text-white px-6 py-2.5 rounded-xl font-semibold hover:opacity-90 transition shadow-lg">
+                        New Report
+                    </button>
+                </div>
+            </header>
+
+            <section class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-10">
+                <div class="lg:col-span-2 glass-card bg-white/40 p-6 rounded-[2rem] shadow-sm">
+                    <div class="flex justify-between items-center mb-4 px-2">
+                        <div>
+                            <h3 class="text-lg font-bold">Incident Live Map</h3>
+                            <p class="text-xs text-indigo-400 font-bold uppercase tracking-widest">Cebu City Operations</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <span class="px-3 py-1 bg-white/60 rounded-full text-[10px] font-black border border-white">LIVE FEED</span>
+                        </div>
+                    </div>
+                    
+                    <div id="map" class="shadow-inner border border-white/50"></div>
+                </div>
+
+                <div class="glass-card bg-sleek-dark text-white p-8 rounded-[2rem] flex flex-col justify-between">
+                    <h4 class="font-bold text-lg opacity-60">Civic Rank</h4>
+                    <div class="text-center py-4">
+                        <p id="user-rank" class="text-6xl font-black italic text-indigo-300">--</p>
+                        <p class="text-xs uppercase tracking-widest mt-2 opacity-50">Community Member</p>
+                    </div>
+                    <button onclick="window.location.href='rewards.html'" class="w-full py-4 bg-white/10 hover:bg-white/20 rounded-2xl font-bold text-sm transition border border-white/10">
+                        Claim Rewards
+                    </button>
+                </div>
+            </section>
+
+            <section>
+                <div class="flex justify-between items-end mb-6">
+                    <h3 class="text-xl font-bold">Recent Community Reports</h3>
+                    <button class="text-sm font-bold text-indigo-500 hover:underline">View All</button>
+                </div>
+
+                <div id="reports-list" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+    <script>
+        window.addEventListener('DOMContentLoaded', () => {
+            initMap();
+            fetchUserData();
+            fetchReports();
+        });
+
+        /**
+         * MAP INITIALIZATION
+         */
+        function initMap() {
+            // Centered on Cebu City coordinates
+            const map = L.map('map').setView([10.3157, 123.8854], 14);
+
+            // Using a clean, minimal map style (Voyager)
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+                attribution: '© OpenStreetMap'
+            }).addTo(map);
+
+            // Mock Pointers (Damages)
+            const markers = [
+                { coords: [10.3167, 123.8907], title: "Pothole: P. del Rosario", type: "Road Damage" },
+                { coords: [10.3067, 123.8950], title: "Flooding: Colon St.", type: "Drainage" },
+                { coords: [10.3200, 123.8800], title: "Outage: Banilad", type: "Electrical" }
+            ];
+
+            markers.forEach(point => {
+                L.marker(point.coords).addTo(map)
+                    .bindPopup(`<b class="font-bold">${point.title}</b><br><span class="text-indigo-500">${point.type}</span>`);
+            });
+        }
+
+        async function fetchUserData() {
+            const mockUser = { name: 'Zoa', points: 2450, rank: 'A+', alerts: 3 };
+            document.getElementById('user-name').innerText = mockUser.name;
+            document.getElementById('user-points').innerText = mockUser.points;
+            document.getElementById('user-rank').innerText = mockUser.rank;
+            document.getElementById('report-count').innerText = mockUser.alerts;
+        }
+
+        async function fetchReports() {
+            const mockReports = [
+                { id: '892', title: 'Brgy. Luz Drainage', status: 'ASSIGNED', icon: '📍', loc: 'P. del Rosario' },
+                { id: '893', title: 'Streetlight Failure', status: 'REVIEWING', icon: '💡', loc: 'V. Rama Ave' }
+            ];
+
+            const container = document.getElementById('reports-list');
+            container.innerHTML = mockReports.map(report => `
+                <div class="glass-card bg-white/20 hover:bg-white/40 p-6 rounded-2xl transition flex items-center gap-6 group cursor-pointer">
+                    <div class="w-16 h-16 bg-white/60 rounded-xl flex items-center justify-center text-2xl group-hover:scale-105 transition">${report.icon}</div>
+                    <div>
+                        <h5 class="font-bold">${report.title}</h5>
+                        <p class="text-sm text-indigo-500/70">${report.loc} • Just now</p>
+                    </div>
+                    <div class="ml-auto text-right">
+                        <span class="text-xs font-black text-indigo-500">${report.status}</span>
                     </div>
                 </div>
-            </div>
-        </div>
-    </main>
+            `).join('');
+        }
+
+        function handleLogout() {
+            window.location.href = 'index.html';
+        }
+    </script>
 </body>
 </html>
